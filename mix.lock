@@ -1,0 +1,2 @@
+%{"ewebmachine": {:hex, :ewebmachine, "2.0.9"},
+  "plug": {:hex, :plug, "1.0.2"}}
