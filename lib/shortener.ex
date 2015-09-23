@@ -9,7 +9,7 @@ require Logger
   def start_link, do: GenServer.start_link(__MODULE__, __MODULE__, name: @server)
 
   def get_url(id),  do: GenServer.call(@server, {:get_url, id})
-  def put_utl(url), do: GenServer.call(@server, {:put_url, url})
+  def put_url(url), do: GenServer.call(@server, {:put_url, url})
 
   # GenServer API
 
