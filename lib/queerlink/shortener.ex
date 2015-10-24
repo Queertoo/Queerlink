@@ -2,14 +2,12 @@ defmodule Queerlink.Shortener do
 @moduledoc false
 use GenServer
 require Logger
-
 @tab :shortened_urls
-@server __MODULE__
 
-  def start_link, do: GenServer.start_link(__MODULE__, __MODULE__, name: @server)
+  def start_link, do: GenServer.start_link(__MODULE__, __MODULE__, name: __MODULE__)
 
-  def get_url(id),  do: GenServer.call(@server, {:get_url, id})
-  def put_url(url), do: GenServer.call(@server, {:put_url, url})
+  def get_url(id),  do: GenServer.call(__MODULE__, {:get_url, id})
+  def put_url(url), do: GenServer.call(__MODULE__, {:put_url, url})
 
   # GenServer API
 

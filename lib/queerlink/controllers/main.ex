@@ -1,13 +1,16 @@
 defmodule Queerlink.Controllers.Main do
-  use Sugar.Controller
+use Sugar.Controller
+@host Application.get_env(:queerlink, :host, "localhost")
 
   def index(conn, []) do
-    render(conn, 'index')
+    raw conn |> resp(200, "Hello world")
   end
 
-  def shorten(conn, url: url) do
-    short_url = Queerlink.Shortener.put_url(url)
-    json(conn, short_url)
+  def api_shorten(conn, url) do
+    data = Queerlink.Shortener.put_url(url) |> parse
+    json(conn, data)
   end
+
+  defp parse({:ok, id}), do: %{:status => "ok", :data => @host <> "/#{id}"}
+  defp parse({:error, :not_found}), do: %{:status => "error", :data => "URL not found"}
 end
-

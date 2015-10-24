@@ -5,7 +5,6 @@ use Supervisor
 require Logger
 
   def start_link do
-    Logger.debug("link started for supervisor")
     Supervisor.start_link(__MODULE__, [])
   end
 
