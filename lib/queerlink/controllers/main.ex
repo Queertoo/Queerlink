@@ -1,6 +1,6 @@
 defmodule Queerlink.Controllers.Main do
 use Sugar.Controller
-@host Application.get_env(:queerlink, :host, "localhost")
+@host Application.get_env(:queerlink, :host)
 require Logger
 
   def index(conn, []) do

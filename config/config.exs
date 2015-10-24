@@ -3,7 +3,7 @@
 use Mix.Config
 
 config :queerlink,
-  host: "http://hemochro.me"
+  host: "http://localhost"
 
 config :sugar,
   router: Queerlink.Router
@@ -12,4 +12,3 @@ config :sugar, Queerlink.Router,
   https_only: false,
   http: [ port: 4000 ],
   https: false
-
