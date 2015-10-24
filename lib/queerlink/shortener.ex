@@ -6,7 +6,8 @@ require Logger
 
   def start_link, do: GenServer.start_link(__MODULE__, __MODULE__, name: __MODULE__)
 
-  def get_url(id),  do: GenServer.call(__MODULE__, {:get_url, id})
+  def get_url(id) when is_integer(id), do: get_url(Integer.to_string(id))
+  def get_url(id) when is_binary(id), do: GenServer.call(__MODULE__, {:get_url, id})
   def put_url(url), do: GenServer.call(__MODULE__, {:put_url, url})
 
   # GenServer API
@@ -26,6 +27,7 @@ require Logger
   end
 
   def handle_call({:put_url, url}, _from, state) do
+    Logger.debug("Got #{url} to shorten")
     %St{next: n} = state
     id = b36_encode(n)
     :ets.insert(@tab, {id, url})

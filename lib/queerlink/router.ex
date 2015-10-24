@@ -14,5 +14,7 @@ defmodule Queerlink.Router do
   # Define your routes here
   get "/", Queerlink.Controllers.Main, :index
 
-  get "/shorten/json/:url", Queerlink.Controllers.Main, :api_shorten
+  post "/shorten/:format", Queerlink.Controllers.Main, :shorten
+  get  "/expand/:format/:url",  Queerlink.Controllers.Main, :expand
+  get  "/:id", Queerlink.Controller.Main, :url_redirect
 end
