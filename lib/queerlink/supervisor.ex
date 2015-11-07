@@ -12,6 +12,7 @@ require Logger
     Logger.debug("Supervisor started")
     children = [
       worker(Queerlink.Shortener, []),
+      worker(Queerlink.Repo, []),
     ]
     supervise(children, strategy: :one_for_one)
   end

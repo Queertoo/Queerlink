@@ -12,3 +12,7 @@ config :sugar, Queerlink.Router,
   https_only: false,
   http: [ port: 4000, ip: {127,0,0,1} ],
   https: false
+
+config :queerlink, Queerlink.Repo,
+  adapter: Sqlite.Ecto,
+  database: "priv/links.sqlite3"

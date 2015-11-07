@@ -16,10 +16,16 @@ Just hit /<ID> and you'll get redirected.
 ### Installing
 
 ```
-mix deps.get
-MIX_ENV=prod compile
-MIX_ENV=prod mix.server
+(export MIX_ENV=prod)
+mix do deps.get, compile
+mix ecto.create -r Queerlink.Repo
+mix ecto.migrate -r Queerlink.Repo
 ```
+
+Then type `sqlite3 links.sqlite3` and enter:  
+`CREATE TABLE "links" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "short" TEXT, "long" TEXT, "inserted_at" DATETIME NOT NULL, "updated_at" DATETIME NOT NULL);`
+
+Fire up the webserver with `mix.server`
 
 It will run by default on port 4000. Edit [config.exs](config/config.exs) to change it according to your needs. The host is also configurable.
 

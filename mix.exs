@@ -14,7 +14,7 @@ defmodule Queerlink.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger, :sugar],
+    [applications: [:logger, :sugar, :sqlite_ecto, :ecto],
      mod: {Queerlink, []}]
   end
 
@@ -29,6 +29,7 @@ defmodule Queerlink.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [{:sugar, "~> 0.4"},
+     {:sqlite_ecto, "~> 0.5.0"}
     ]
   end
 end

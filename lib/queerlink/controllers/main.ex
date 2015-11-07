@@ -7,8 +7,8 @@ require Logger
     raw conn |> resp(200, "Hello world")
   end
 
-  def url_redirect(conn, [id: id]) do
-    case Queerlink.Shortener.get_url(id) do
+  def url_redirect(conn, [uid: uid]) do
+    case Queerlink.Shortener.get_url(uid) do
       {:ok, url} ->
         conn |> redirect(url)
       {:error, :not_found} ->
@@ -21,13 +21,12 @@ require Logger
     json(conn, data)
   end
 
-  def expand(conn, [format: "json", id: id]) do
-    data = Queerlink.Shortener.get_url(id) |> e_parse
+  def expand(conn, [format: "json", uid: uid]) do
+    data = Queerlink.Shortener.get_url(uid) |> e_parse
     json(conn, data)
   end
 
-  defp s_parse({:ok, id}), do: %{:status => "ok", :data => @host <> "/#{id}"}
-  defp s_parse({:error, :not_found}), do: %{:status => "error", :data => "URL not found"}
+  defp s_parse({:ok, uid}), do: %{:status => "ok", :data => @host <> "/#{uid}"}
 
   defp e_parse({:ok, url}), do: %{:status => "ok", :data => url}
   defp e_parse({:error, :not_found}), do: %{:status => "error", :data => "URL not found"}
