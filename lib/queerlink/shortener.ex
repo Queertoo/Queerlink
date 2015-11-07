@@ -33,7 +33,6 @@ require Logger
 
   # Backend API
   def insert(url) do
-    Logger.debug("URL :" <> url)
     url |> check_duplicate |> insert_to_db(url)
   end
 

@@ -1,6 +1,7 @@
 defmodule Queerlink.Controllers.Main do
 use Sugar.Controller
 @host Application.get_env(:queerlink, :host)
+@port Application.get_env(:sugar, Queerlink.Router) |> Keyword.fetch!(:http) |> Keyword.fetch!(:port)
 require Logger
 
   def index(conn, []) do
@@ -26,7 +27,13 @@ require Logger
     json(conn, data)
   end
 
-  defp s_parse({:ok, link}), do: %{:status => "ok", :data => @host <> "/#{link.uid}"}
+  defp s_parse({:ok, link}) do
+    uid = link.uid
+    case Mix.env do
+      :prod -> %{:status => "ok", :data => "#{@host}/#{uid}"}
+      _    -> %{:status => "ok", :data => "#{@host}:#{@port}/#{uid}"}
+    end
+  end
 
   defp e_parse({:ok, url}), do: %{:status => "ok", :data => url}
   defp e_parse({:error, :not_found}), do: %{:status => "error", :data => "URL not found"}
