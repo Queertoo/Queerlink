@@ -18,7 +18,7 @@ require Logger
   end
   def shorten(conn, [format: "json"]) do
     %{"url" => url} = conn.params
-    data = Queerlink.Shortener.put_url(url) |> s_parse
+    data = Queerlink.Shortener.put_url(url) |> _s_parse
     json(conn, data)
   end
 
@@ -27,13 +27,15 @@ require Logger
     json(conn, data)
   end
 
-  defp s_parse({:ok, link}) when is_map(link) do
-    uid = link.uid
+  defp s_parse(uid) do
     case Mix.env do
       :prod -> %{:status => "ok", :data => "#{@host}/#{uid}"}
       _    -> %{:status => "ok", :data => "#{@host}:#{@port}/#{uid}"}
     end
   end
+
+  defp _s_parse({:ok, {:ok, uid}}), do: s_parse(uid)
+  defp _s_parse({:ok, link}) when is_map(link), do: s_parse(link.uid)
 
   defp e_parse({:ok, url}), do: %{:status => "ok", :data => url}
   defp e_parse({:error, :not_found}), do: %{:status => "error", :data => "URL not found"}
