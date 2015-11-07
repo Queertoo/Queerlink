@@ -27,7 +27,7 @@ require Logger
     json(conn, data)
   end
 
-  defp s_parse({:ok, link}) do
+  defp s_parse({:ok, link}) when is_struct(link) do
     uid = link.uid
     case Mix.env do
       :prod -> %{:status => "ok", :data => "#{@host}/#{uid}"}
