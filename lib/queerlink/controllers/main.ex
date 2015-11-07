@@ -26,7 +26,7 @@ require Logger
     json(conn, data)
   end
 
-  defp s_parse({:ok, uid}), do: %{:status => "ok", :data => @host <> "/#{uid}"}
+  defp s_parse({:ok, link}), do: %{:status => "ok", :data => @host <> "/#{link.uid}"}
 
   defp e_parse({:ok, url}), do: %{:status => "ok", :data => url}
   defp e_parse({:error, :not_found}), do: %{:status => "error", :data => "URL not found"}
