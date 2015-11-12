@@ -15,7 +15,7 @@ require Logger
 
   # GenServer API
   def init(_args) do
-    Logger.debug("Shortener Initialiased")
+    Logger.info(IO.ANSI.green <> "Shortener Initialiased" <> IO.ANSI.reset)
     {:ok, :ok}
   end
 

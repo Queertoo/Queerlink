@@ -9,7 +9,7 @@ require Logger
   end
 
   def init([]) do
-    Logger.debug("Supervisor started")
+    Logger.info( IO.ANSI.green <> "Supervisor started" <> IO.ANSI.reset)
     children = [
       worker(Queerlink.Shortener, []),
       worker(Queerlink.Repo, []),
