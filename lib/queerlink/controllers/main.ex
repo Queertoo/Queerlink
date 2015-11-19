@@ -16,9 +16,18 @@ require Logger
         conn |> static("not_found.html")
     end
   end
+
   def shorten(conn, [format: "json"]) do
     %{"url" => url} = conn.params
-    data = Queerlink.Shortener.put_url(url) |> _s_parse
+    case URI.parse(url) |> validate do
+      {:error, :invalid_url} ->
+        data = %{:status => "error", :data => "Invalid URL"}
+      {:error, :localhost} ->
+        data = %{:status => "error", :data => "localhost is not an authorized domain"}
+      _ ->
+        data = Queerlink.Shortener.put_url(url) |> s_parse
+    end
+
     json(conn, data)
   end
 
@@ -27,16 +36,32 @@ require Logger
     json(conn, data)
   end
 
-  defp s_parse(uid) do
+
+  defp s_parse({:ok, {:ok, uid}}), do: s_parse({:uid, uid})
+  defp s_parse({:ok, link}) when is_map(link), do: s_parse({:uid, link.uid})
+  defp s_parse({:uid, uid}) do
     case Mix.env do
       :prod -> %{:status => "ok", :data => "#{@host}/#{uid}"}
-      _    -> %{:status => "ok", :data => "#{@host}:#{@port}/#{uid}"}
+      _     -> %{:status => "ok", :data => "#{@host}:#{@port}/#{uid}"}
     end
   end
 
-  defp _s_parse({:ok, {:ok, uid}}), do: s_parse(uid)
-  defp _s_parse({:ok, link}) when is_map(link), do: s_parse(link.uid)
-
   defp e_parse({:ok, url}), do: %{:status => "ok", :data => url}
   defp e_parse({:error, :not_found}), do: %{:status => "error", :data => "URL not found"}
+
+
+  def validate(uri) do
+    case uri.host do
+      "127.0.0.1" ->
+        {:error, :localhost}
+      "localhost" ->
+        {:error, :localhost}
+      "::1" ->
+        {:error, :localhost}
+      nil ->
+        {:error, :invalid_url}
+      _ ->
+        URI.to_string(uri)
+    end
+  end
 end
