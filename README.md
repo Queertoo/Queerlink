@@ -33,7 +33,12 @@ mix ecto.migrate -r Queerlink.Repo
 
 Fire up the webserver with `mix.server` (or `iex -S mix server` if you want to have access to an interactive conseole)
 
-It will run by default on port 4000. Edit [config.exs](config/config.exs) to change it according to your needs. The host is also configurable.
+It will run by default on port 4000. Edit [config.exs](config/config.exs) to change it according to your needs. The IP it binds to is also configurable.
+
+### Ngnix configuration
+
+There are sample configuration files in the [nginx](nginx/) directory.  
+The rate-limit is handled here.
 
 ### JSON API
 #### Sending a link

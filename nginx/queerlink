@@ -1,0 +1,31 @@
+# Configuration for Queerlink.
+limit_req_zone $binary_remote_addr zone=json:10m rate=1r/s;
+
+server {
+        listen 80;
+        server_name lin.k;
+
+        access_log /var/log/nginx/access-queerlink.log;
+        error_log /var/log/nginx/error-queerlink.log debug;
+        location / {
+            include /etc/nginx/proxy;
+            proxy_pass http://127.0.0.1:4000;
+        }
+
+        location /shorten/json {
+            limit_req zone=json burst=5;
+            include /etc/nginx/proxy;
+            proxy_pass http://127.0.0.1:4000;
+        }
+
+        gzip  on;
+        gzip_http_version 1.0;
+        gzip_vary on;
+        gzip_comp_level 6;
+        gzip_proxied any;
+        gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+        gzip_buffers 16 8k;
+        # Disable gzip for certain browsers.
+        gzip_disable ~@~\MSIE [1-6].(?!.*SV1)~@~];
+}
+
