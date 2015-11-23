@@ -66,9 +66,14 @@ require Logger
   end
 
   def gen_uid do
-    (:os.timestamp |> :calendar.now_to_universal_time
-      |> :calendar.datetime_to_gregorian_seconds) - 719528*24*3600
+    ((:os.timestamp |> :calendar.now_to_universal_time
+      |> :calendar.datetime_to_gregorian_seconds) - 719528*24*3600) + salt
       |> Integer.to_string(36)
       |> String.downcase
+  end
+
+  def salt do
+    <<a:: 32, rest:: binary>> = :crypto.rand_bytes(12)
+    a
   end
 end

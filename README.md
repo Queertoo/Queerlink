@@ -1,7 +1,7 @@
 Queerlink
 =========
 
-Version 2.0.0
+Version 2
 
 
 Queerlink is a simple yet efficient URL shortening service written in [Elixir](http://elixir-lang.org).
@@ -77,3 +77,8 @@ server: Cowboy
 }
 
 ```
+
+### Implementations
+#### Clients
+
+* [Queerlink-Client](https://github.com/EtienneDesticourt/Queerlink-Client): A basic python implementation.
