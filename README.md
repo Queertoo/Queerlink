@@ -43,10 +43,10 @@ The rate-limit is handled here.
 ### JSON API
 #### Sending a link
 
-`POST /shorten/json?url='URL'`
+`PUT /shorten/json?url='URL'`
 
 ```
-$ http -j POST "http://localhost:4000/shorten/json?url=http://github.com/foo/bar"
+$ http -j PUT "http://localhost:4000/shorten/json?url=http://github.com/foo/bar"
 HTTP/1.1 200 OK
 cache-control: max-age=0, private, must-revalidate
 content-length: 36
