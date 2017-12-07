@@ -1,0 +1,56 @@
+# Queerlink v2 [![Queerness][queerness]]()
+
+>A simple and efficient link shortener.
+
+## Features
+
+- [x] A super-easy-to-use JSON API.
+- [x] Your data is stored in an sqlite3 database. Backup with `rsync` or `scp`!
+- [ ] A clean, no-fuss web interface
+
+
+## Using the API
+
+With HTTPie, simply type `http POST :4000/s url=https://elixir-lang.org` (for instance).
+You can test what you get with `http http://localhost:4000/l/20gd6ne`.
+
+the POST request will, in case of success, return this schema:
+
+```JSON
+{
+    "longUrl": "https://elixir-lang.org",
+    "shortUrl": "http://localhost:4000/l/20gd6ne",
+    "status": "success"
+}
+```
+
+
+## Installation
+
+Queerlink requires Elixir v1.4 and (it's in your best interest) OTP20.  
+Don't forget to export the `PORT` and `MIX_ENV` environment variables, the latter being `prod` when you're reading for launching live!
+
+Next:
+
+1. Install dependencies with `mix deps.get`;
+2. In an `prod` environment, don't forget to generate a secret key base with `mix phx.gen.secret` and add this snippet in `config/prod.secret.exs`:
+```elixir
+config :queerlink, QueerlinkWeb.Endpoint,
+  secret_key_base: "mysecret"
+```
+3. Create and migrate your database with `mix ecto.create && mix ecto.migrate`;
+4. Install Node.js dependencies with `npm install`;
+5. Start Phoenix endpoint with mix `phx.server`.
+
+### In addition…
+
+The `doc/nginx/` directory contains the necessary configuration to run Queerlink behind an Nginx reverse proxy.
+You can find a [wrk][wrk] lua script in `doc/` as well.
+
+
+## License
+
+This software is licensed under the [MIT license](LICENSE).
+
+[queerness]: https://cdn.rawgit.com/Queertoo/Alher/master/rainbow-queerness.svg
+[wrk]: https://github.com/wg/wrk
