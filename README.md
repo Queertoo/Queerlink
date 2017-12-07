@@ -1,12 +1,13 @@
-# Queerlink v2 [![Queerness][queerness]]()
+# Queerlink v2 [![Made in Elixir][elixir]](https://elixir-lang.org) [![Made with Queerness][queerness]]()
 
 >A simple and efficient link shortener.
 
 ## Features
 
-- [x] A super-easy-to-use JSON API.
-- [x] Your data is stored in an sqlite3 database. Backup with `rsync` or `scp`!
-- [ ] A clean, no-fuss web interface
+- [x] A super-easy-to-use JSON API;
+- [x] Your data is stored in an sqlite3 database. Backup with `rsync` or `scp`;
+- [ ] A clean, no-fuss web interface;
+- [ ] A documentation.
 
 
 ## Using the API
@@ -40,7 +41,7 @@ config :queerlink, QueerlinkWeb.Endpoint,
 ```
 3. Create and migrate your database with `mix ecto.create && mix ecto.migrate`;
 4. Install Node.js dependencies with `npm install`;
-5. Start Phoenix endpoint with mix `phx.server`.
+5. Start the beast with `iex -S mix phx.server`
 
 ### In addition…
 
@@ -52,5 +53,6 @@ You can find a [wrk][wrk] lua script in `doc/` as well.
 
 This software is licensed under the [MIT license](LICENSE).
 
-[queerness]: https://cdn.rawgit.com/Queertoo/Alher/master/rainbow-queerness.svg
+[queerness]: https://cdn.rawgit.com/Queertoo/Queerlink/master/rainbow-queerness.svg
+[elixir]: https://cdn.rawgit.com/Queertoo/Queerlink/master/elixir.svg
 [wrk]: https://github.com/wg/wrk
