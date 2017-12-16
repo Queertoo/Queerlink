@@ -3,23 +3,29 @@ defmodule Queerlink.Shortener do
   alias Queerlink.Repo
   alias Queerlink.Link
 
+  require Logger
+
   @type hash :: String.t
   @type url  :: String.t
+  @schemes ["http", "https", "ftp", "sftp", "ftps"]
 
   @spec insert(url()) :: {:ok, hash()} | {:error, atom()}
-  def insert(url) do
-    with {:ok, :valid} <- check_url(url),
-         {:ok, :uniq}  <- check_duplicate(url) do
+  def insert(url) when is_binary(url) do
+    Logger.debug "Got URL " <> url
+    with {:ok, new_url} <- check_url(url),
+         {:ok, :uniq}   <- check_duplicate(url) do
            hash = gen_uid()
            %Link{}
-           |> Link.changeset(%{source: url, hash: hash})
+           |> Link.changeset(%{source: new_url, hash: hash})
            |> Repo.insert
 
           {:ok, hash}
     else
       {:error, :duplicate, hash} ->
         {:ok, hash}
-      error -> error
+      {:error, msg} ->
+        Logger.error "[URL] " <> msg
+        {:error, :invalid}
     end
   end
 
@@ -31,11 +37,11 @@ defmodule Queerlink.Shortener do
     end
   end
 
-  @spec check_url(url()) :: {:ok, :valid} | {:error, :invalid}
+  @spec check_url(url()) :: {:ok, url()} | {:error, :invalid}
   defp check_url(url) do
-    case url |> URI.parse |> validate_host do
-      :ok -> {:ok, :valid}
-      error    -> error
+    case URI.parse(url).scheme do
+      "magnet" -> {:ok, url}
+      scheme when scheme in @schemes -> Norma.normalize_if_valid(url)
     end
   end
 
@@ -77,8 +83,8 @@ defmodule Queerlink.Shortener do
     case uri.scheme do
       "magnet" ->
         URI.to_string(uri)
-      _ ->
-        {:error, :invalid}
+      nil ->
+        URI.to_string(uri)
     end
   end
 end

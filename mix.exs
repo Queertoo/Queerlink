@@ -37,6 +37,7 @@ defmodule Queerlink.Mixfile do
       {:ex_doc, "~> 0.18.1"},
       {:gettext, "~> 0.11"},
       {:hashids, "~> 2.0.4"},
+      {:norma, "~> 1.4.2"},
       {:phoenix, "~> 1.3.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:phoenix_html, "~> 2.10"},

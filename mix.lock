@@ -11,6 +11,7 @@
   "gettext": {:hex, :gettext, "0.13.1", "5e0daf4e7636d771c4c71ad5f3f53ba09a9ae5c250e1ab9c42ba9edccc476263", [], [], "hexpm"},
   "hashids": {:hex, :hashids, "2.0.4", "ea47a2c2018b7ffb4f5ac9b0f8ea0af6d6159b9e190c5ed09f0ea83276968e0f", [], [], "hexpm"},
   "mime": {:hex, :mime, "1.1.0", "01c1d6f4083d8aa5c7b8c246ade95139620ef8effb009edde934e0ec3b28090a", [], [], "hexpm"},
+  "norma": {:hex, :norma, "1.4.2", "a435babbd86ada63836a9ec6f6dd99344efa818d00507c0a016797ab7876e644", [], [], "hexpm"},
   "phoenix": {:hex, :phoenix, "1.3.0", "1c01124caa1b4a7af46f2050ff11b267baa3edb441b45dbf243e979cd4c5891b", [], [{:cowboy, "~> 1.0", [hex: :cowboy, repo: "hexpm", optional: true]}, {:phoenix_pubsub, "~> 1.0", [hex: :phoenix_pubsub, repo: "hexpm", optional: false]}, {:plug, "~> 1.3.3 or ~> 1.4", [hex: :plug, repo: "hexpm", optional: false]}, {:poison, "~> 2.2 or ~> 3.0", [hex: :poison, repo: "hexpm", optional: false]}], "hexpm"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "3.3.0", "702f6e164512853d29f9d20763493f2b3bcfcb44f118af2bc37bb95d0801b480", [], [{:ecto, "~> 2.1", [hex: :ecto, repo: "hexpm", optional: false]}, {:phoenix_html, "~> 2.9", [hex: :phoenix_html, repo: "hexpm", optional: true]}, {:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
   "phoenix_html": {:hex, :phoenix_html, "2.10.5", "4f9df6b0fb7422a9440a73182a566cb9cbe0e3ffe8884ef9337ccf284fc1ef0a", [], [{:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
