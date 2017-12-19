@@ -2,6 +2,9 @@
 
 >A simple and efficient link shortener.
 
+
+<img src="Queerlink.png" />
+
 ## Features
 
 - [x] A super-easy-to-use JSON API;
@@ -53,6 +56,6 @@ You can find a [wrk][wrk] lua script in `doc/` as well.
 
 This software is licensed under the [MIT license](LICENSE).
 
-[queerness]: https://cdn.rawgit.com/Queertoo/Queerlink/master/rainbow-queerness.svg
-[elixir]: https://cdn.rawgit.com/Queertoo/Queerlink/master/elixir.svg
+[queerness]: https://cdn.rawgit.com/Queertoo/Queerlink/master/assets/static/images/rainbow-queerness.svg
+[elixir]: https://cdn.rawgit.com/Queertoo/Queerlink/master/assets/static/images/elixir.svg
 [wrk]: https://github.com/wg/wrk
