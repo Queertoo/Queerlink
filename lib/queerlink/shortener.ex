@@ -7,25 +7,26 @@ defmodule Queerlink.Shortener do
 
   @type hash :: String.t
   @type url  :: String.t
-  @schemes ["http", "https", "ftp", "sftp", "ftps"]
 
   @spec insert(url()) :: {:ok, hash()} | {:error, atom()}
   def insert(url) when is_binary(url) do
     Logger.debug "Got URL " <> url
-    with {:ok, new_url} <- check_url(url),
-         {:ok, :uniq}   <- check_duplicate(url) do
-           hash = gen_uid()
-           %Link{}
-           |> Link.changeset(%{source: new_url, hash: hash})
-           |> Repo.insert
+    with  {:ok, new_url} <- Norma.normalize_if_valid(url),
+          {:ok, :uniq}   <- check_duplicate(url), 
+          result <- Link.changeset(%Link{}, %{source: url, hash: gen_uid()}) do
+            Repo.insert result
 
-          {:ok, hash}
+            Logger.info(inspect result)
+            {:ok, result}
     else
-      {:error, :duplicate, hash} ->
-        {:ok, hash}
+      {:error, :duplicate, link} ->
+        result = Link.changeset(%Link{}, %{source: link.source, hash: link.hash})
+        Logger.info(inspect result)
+        {:ok, result}
       {:error, msg} ->
-        Logger.error "[URL] " <> msg
-        {:error, :invalid}
+        result = Link.changeset(%Link{}, %{source: url, hash: gen_uid()})
+        Logger.info(inspect result)
+        {:error, result}
     end
   end
 
@@ -37,19 +38,11 @@ defmodule Queerlink.Shortener do
     end
   end
 
-  @spec check_url(url()) :: {:ok, url()} | {:error, :invalid}
-  defp check_url(url) do
-    case URI.parse(url).scheme do
-      "magnet" -> {:ok, url}
-      scheme when scheme in @schemes -> Norma.normalize_if_valid(url)
-    end
-  end
-
   @spec check_duplicate(url()) :: {:ok, :uniq} | {:error, :duplicate}
   defp check_duplicate(url) do
     case Repo.get_by(Link, source: url) do
       nil            -> {:ok, :uniq}
-      %Link{}=link   -> {:error, :duplicate, link.hash}
+      %Link{}=link   -> {:error, :duplicate, link}
     end
   end
 
@@ -63,28 +56,5 @@ defmodule Queerlink.Shortener do
   defp salt do
     <<a:: 32, rest:: binary>> = :crypto.strong_rand_bytes(12)
     a
-  end
-
-  defp validate_host(uri) do
-    case uri.host do
-      "127.0" <> _foo ->
-        {:error, :invalid}
-      "localhost" ->
-        {:error, :invalid}
-      "::1" ->
-        {:error, :invalid}
-      nil ->
-        validate_scheme(uri)
-      _ -> :ok
-    end
-  end
-
-  defp validate_scheme(uri) do
-    case uri.scheme do
-      "magnet" ->
-        URI.to_string(uri)
-      nil ->
-        URI.to_string(uri)
-    end
   end
 end

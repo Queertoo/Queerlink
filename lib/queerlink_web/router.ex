@@ -16,14 +16,15 @@ defmodule QueerlinkWeb.Router do
   scope "/", QueerlinkWeb do
     pipe_through :api
 
-    post "/s",  LinkController, :shorten
+    post "/s",       LinkController, :shorten
     get  "/l/:hash", LinkController, :expand 
   end
 
   scope "/", QueerlinkWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/",      PageController, :index
-    get "/:hash", PageController, :expand 
+    get  "/",       PageController, :index
+    get  "/:hash",  PageController, :expand 
+    post "/create", PageController, :create
   end
 end

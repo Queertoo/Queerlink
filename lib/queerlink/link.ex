@@ -3,6 +3,7 @@ defmodule Queerlink.Link do
   import Ecto.Changeset
   alias Queerlink.Link
 
+  # @schemes ["http", "https", "ftp", "sftp", "ftps"]
 
   schema "links" do
     field :source, :string
@@ -14,6 +15,6 @@ defmodule Queerlink.Link do
     link
     |> cast(attrs, [:source, :hash])
     |> validate_required([:source, :hash])
+    |> validate_format(:source, ~r/(http|https|):\/\/.+/)
   end
-
 end

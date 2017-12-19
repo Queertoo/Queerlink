@@ -9,7 +9,7 @@ defmodule QueerlinkWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/", from: :queerlink, gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt woff)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
