@@ -20,7 +20,6 @@
     <footer>
       <img src="<%= static_path(@conn, "/images/elixir.svg")%>">
       <img src="<%= static_path(@conn, "/images/rainbow-queerness.svg")%>">
-      <i class="fa fa-github" aria-hidden="true"></i>
     </footer>
   </body>
 </html>

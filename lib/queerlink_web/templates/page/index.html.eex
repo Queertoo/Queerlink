@@ -2,22 +2,34 @@
     <div class="container">
       <h1 class="title"> Queerlink! </h1>
       <p class="subtitle">
-      A URL shortening service built by the Queertoo Community
+        A URL shortening service built by the <%=link("Queertoo Community", to: "https://queertoo.org")%>
       </p>
     </div>
   </section>
 
 <div class="container">
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+ 
   <div class="field has-addons">
+
     <%= form_for @changeset, page_path(@conn, :create), fn f -> %> 
       <div class="control form-group">
         <%= text_input f, :url,  class: "input form-control", placeholder: "Paste your link"%>
-        <%= error_tag f, :url %>
+        <%= unless @new, do: error_tag f.source, :source %>
       </div>
       <div class="control">
         <button class="button is-outlined">Shorten!</button>
       </div>
     <% end %>
-  
+
   </div> <!-- fields -->
+<%= if @changeset.valid? do %>
+  <p><%= link(@changeset.changes.source, to: @changeset.changes.source) %></p>
+  <p><%= link(link_url(@conn, :expand, @changeset.changes.hash), to: link_url(@conn, :expand, @changeset.changes.hash)) %></p>
+<% end %>
 </div> <!-- container -->
+

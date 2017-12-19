@@ -6,7 +6,7 @@
 
 - [x] A super-easy-to-use JSON API;
 - [x] Your data is stored in an sqlite3 database. Backup with `rsync` or `scp`;
-- [ ] A clean, no-fuss web interface;
+- [x] A clean, no-fuss web interface;
 - [ ] A documentation.
 
 
