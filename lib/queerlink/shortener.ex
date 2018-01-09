@@ -12,8 +12,8 @@ defmodule Queerlink.Shortener do
   def insert(url) when is_binary(url) do
     Logger.debug "Got URL " <> url
     with  {:ok, new_url} <- Norma.normalize_if_valid(url),
-          {:ok, :uniq}   <- check_duplicate(url), 
-          result <- Link.changeset(%Link{}, %{source: url, hash: gen_uid()}) do
+          {:ok, :uniq}   <- check_duplicate(new_url), 
+          result <- Link.changeset(%Link{}, %{source: new_url, hash: gen_uid()}) do
             Repo.insert result
 
             Logger.info(inspect result)
@@ -25,7 +25,7 @@ defmodule Queerlink.Shortener do
         {:ok, result}
       {:error, msg} ->
         result = Link.changeset(%Link{}, %{source: url, hash: gen_uid()})
-        Logger.info(inspect result)
+        Logger.info(inspect msg)
         {:error, result}
     end
   end
@@ -54,7 +54,7 @@ defmodule Queerlink.Shortener do
   end
 
   defp salt do
-    <<a:: 32, rest:: binary>> = :crypto.strong_rand_bytes(12)
+    <<a:: 32, _rest:: binary>> = :crypto.strong_rand_bytes(12)
     a
   end
 end
