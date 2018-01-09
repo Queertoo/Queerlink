@@ -45,6 +45,9 @@ end
 # will be used by default
 
 release :queerlink do
+  set commands: [
+    "migrate": "rel/commands/migrate.sh"
+  ]
   set version: current_version(:queerlink)
   set applications: [
     :runtime_tools,

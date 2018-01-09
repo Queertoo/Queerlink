@@ -15,14 +15,18 @@ use Mix.Config
 # which you typically run after static files are built.
 config :queerlink, QueerlinkWeb.Endpoint,
   load_from_system_env: true,
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: "localhost", port: {:system, "PORT"}],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  cache_static_manifest: "priv/static/manifest.json",
+  server: true,
+  root: ".",
+  version: Application.spec(:queerlink, :vsn)
 
 # Do not print debug messages in production
 config :logger, level: :info
 
 config :queerlink, Queerlink.Repo,
   adapter: Sqlite.Ecto2,
-  database: "priv/queerlink_prod.sqlite3"
+  database: "queerlink_prod.sqlite3"
 
 import_config "prod.secret.exs"
