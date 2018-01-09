@@ -31,6 +31,8 @@ the POST request will, in case of success, return this schema:
 
 ## Installation
 
+### Local Installation
+
 Queerlink requires Elixir v1.4 and (it's in your best interest) OTP20.  
 Don't forget to export the `PORT` and `MIX_ENV` environment variables, the latter being `prod` when you're reading for launching live!
 
@@ -45,6 +47,16 @@ config :queerlink, QueerlinkWeb.Endpoint,
 3. Create and migrate your database with `mix ecto.create && mix ecto.migrate`;
 4. Install Node.js dependencies with `npm install`;
 5. Start the beast with `iex -S mix phx.server`
+
+### Producing a release
+
+```bash
+$ export MIX_ENV=prod PORT=4000
+$ mix release --env=prod
+$ _build/prod/rel/queerlink/bin/queerlink migrate
+$ _build/prod/rel/queerlink/bin/queerlink start|foreground|console
+```
+
 
 ### In addition…
 
