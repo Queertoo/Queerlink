@@ -4,6 +4,8 @@
 /deps
 /*.ez
 
+package-lock.json
+
 # Generated on crash by the VM
 erl_crash.dump
 
