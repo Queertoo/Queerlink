@@ -2,7 +2,7 @@
     <div class="container">
       <h1 class="title"> Queerlink! </h1>
       <p class="subtitle">
-        A URL shortening service built by the <%=link("Queertoo Community", to: "https://queertoo.org")%>
+        A URL shortening service built by the <%=link("Queertoo Community", to: "http://queertoo.org")%>
       </p>
     </div>
   </section>
