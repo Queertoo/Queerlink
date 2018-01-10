@@ -52,6 +52,9 @@ config :queerlink, QueerlinkWeb.Endpoint,
 
 ```bash
 $ export MIX_ENV=prod PORT=4000
+$ cd assets/ && npm i
+$ ./node_modules/brunch/bin/brunch b -p
+$ cd ../ && mix phx.digest
 $ mix release --env=prod
 $ _build/prod/rel/queerlink/bin/queerlink migrate
 $ _build/prod/rel/queerlink/bin/queerlink start|foreground|console
