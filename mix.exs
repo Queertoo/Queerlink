@@ -4,7 +4,7 @@ defmodule Queerlink.Mixfile do
   def project do
     [
       app: :queerlink,
-      version: "2.0.1",
+      version: "2.0.3",
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
