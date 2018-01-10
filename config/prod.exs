@@ -15,9 +15,9 @@ use Mix.Config
 # which you typically run after static files are built.
 config :queerlink, QueerlinkWeb.Endpoint,
   load_from_system_env: true,
-  url: [host: "localhost", port: {:system, "PORT"}],
+  url: [host: "l.queertoo.org", port: 80],
+  http: [ip: {0,0,0,0}, port: {:system, "PORT"}],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  cache_static_manifest: "priv/static/manifest.json",
   server: true,
   root: ".",
   version: Application.spec(:queerlink, :vsn)
